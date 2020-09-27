@@ -54,8 +54,25 @@ function createRandomStr (length = 32) {
   return temp.join('');
 }
 
+function raw (args) {
+  var keys = Object.keys(args);
+  keys = keys.sort()
+  var newArgs = {};
+  keys.forEach(function (key) {
+    newArgs[key.toLowerCase()] = args[key];
+  });
+
+  var string = '';
+  for (var k in newArgs) {
+    string += '&' + k + '=' + newArgs[k];
+  }
+  string = string.substr(1);
+  return string;
+}
+
 module.exports = {
   getAccessToken,
   getTicket,
-  createRandomStr
+  createRandomStr,
+  raw
 }

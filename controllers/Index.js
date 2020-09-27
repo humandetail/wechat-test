@@ -4,6 +4,7 @@ const {
   getAccessToken,
   getTicket,
   createRandomStr,
+  raw
 } = require('../utils/tools')
 
 const {
@@ -38,12 +39,21 @@ class IndexController {
     // url = `${protocol}://${host}${url}`;
 
     const noncestr = createRandomStr(16), // 随机字符串
-          timestamp = parseInt(new Date().getTime() / 1000); // 时间戳
+          timestamp = parseInt(new Date().getTime() / 1000) + ''; // 时间戳
+
+    const signRet = {
+      jsapi_ticket: ticket,
+      timestamp,
+      nonceStr: noncestr,
+      url
+    }
+
+    const signString = raw(signRet)
 
     // 生成签名，并使用sha1加密
-    const signature = sha1(`jsapi_ticket=${ticket}&noncestr=${noncestr}&timestamp=${timestamp}&url=${url}`);
+    const signature = sha1(signString);
 
-    console.log(`jsapi_ticket=${ticket}&noncestr=${noncestr}&timestamp=${timestamp}&url=${url}`);
+    console.log(signRet);
 
     ctx.body = {
       err_code: 0,
