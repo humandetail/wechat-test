@@ -30,12 +30,15 @@ function checkSignature (config) {
     const tempStr = [token, timestamp, nonce].sort().join(''),
           sha = sha1(tempStr);
   
-    if (sha === signature) {
-      ctx.body = echostr + '';
+    if (ctx.method === 'GET') {
+      if (sha === signature) {
+        ctx.body = echostr + '';
+      } else {
+        ctx.body = 'error';
+      }
     } else {
-      ctx.body = 'error';
+      next();
     }
-    next();
   }
 }
 

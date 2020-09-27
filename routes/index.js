@@ -12,6 +12,6 @@ router.get('/', async (ctx, next) => {
 // // 微信接入验证
 // router.get('/checkSignature', indexController.checkSignature);
 
-router.get('/getSignature', indexController.getSignature);
+router.post('/getSignature', indexController.getSignature);
 
 module.exports = router
