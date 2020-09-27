@@ -8,6 +8,9 @@ const logger = require('koa-logger')
 
 const index = require('./routes/index')
 
+const wechatConfig = require('./config/wechat');
+const middlewares = require('./utils/middlewares');
+
 // error handler
 onerror(app)
 
@@ -22,6 +25,11 @@ app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
 }))
+
+// checkSignature
+app.use(middlewares.checkSignature({
+  token: wechatConfig.TOKEN
+}));
 
 // logger
 app.use(async (ctx, next) => {
