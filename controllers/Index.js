@@ -32,8 +32,8 @@ class IndexController {
 
     // url = `${protocol}://${host}${url}`;
 
-    const noncestr = createRandomStr(), // 随机字符串
-          timestamp = new Date().getTime(), // 时间戳
+    const noncestr = createRandomStr(16), // 随机字符串
+          timestamp = parseInt(new Date().getTime() / 1000), // 时间戳
           url = 'http://wechat-test.humandetail.com/web';
 
     // 生成签名，并使用sha1加密
