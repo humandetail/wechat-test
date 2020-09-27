@@ -12,9 +12,9 @@ const sha1 = require('sha1');
  * 
  */
 function checkSignature (config) {
-  return function (ctx, next) {
-    console.log(ctx.request.query);
+  return async function (ctx, next) {
     const {
+      method,
       request: {
         query: {
           echostr,
@@ -30,14 +30,14 @@ function checkSignature (config) {
     const tempStr = [token, timestamp, nonce].sort().join(''),
           sha = sha1(tempStr);
   
-    if (ctx.method === 'GET') {
+    if (method === 'GET') {
       if (sha === signature) {
         ctx.body = echostr + '';
       } else {
         ctx.body = 'error';
       }
     } else {
-      next();
+      await next();
     }
   }
 }
