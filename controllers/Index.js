@@ -24,17 +24,17 @@ class IndexController {
 
     // let ticket = ''
 
-    let {
-      protocol,
-      host,
-      url
-    } = ctx;
+    // let {
+    //   protocol,
+    //   host,
+    //   url
+    // } = ctx;
 
-    url = `${protocol}://${host}${url}`;
+    // url = `${protocol}://${host}${url}`;
 
     const noncestr = createRandomStr(), // 随机字符串
-          timestamp = new Date().getTime(); // 时间戳
-          // url = ctx.url;
+          timestamp = new Date().getTime(), // 时间戳
+          url = 'http://wechat-test.humandetail.com/web';
 
     // 生成签名，并使用sha1加密
     const signature = sha1(`jsapi_ticket=${ticket}&noncestr=${noncestr}&timestamp=${timestamp}&url=${url}`);
