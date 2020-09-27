@@ -14,6 +14,11 @@ const {
 class IndexController {
   // 获取微信签名
   async getSignature (ctx, next) {
+    
+    const {
+      url
+    } = ctx.request.body;
+
     const {
       access_token
     } = await getAccessToken(APPID, APPSECRET);
@@ -33,8 +38,7 @@ class IndexController {
     // url = `${protocol}://${host}${url}`;
 
     const noncestr = createRandomStr(16), // 随机字符串
-          timestamp = parseInt(new Date().getTime() / 1000), // 时间戳
-          url = 'http://wechat-test.humandetail.com/web';
+          timestamp = parseInt(new Date().getTime() / 1000); // 时间戳
 
     // 生成签名，并使用sha1加密
     const signature = sha1(`jsapi_ticket=${ticket}&noncestr=${noncestr}&timestamp=${timestamp}&url=${url}`);
