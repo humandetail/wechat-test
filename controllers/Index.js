@@ -45,6 +45,9 @@ class IndexController {
       err_code: 0,
       message: 'success',
       data: {
+        url,
+        access_token,
+        ticket,
         signature,
         noncestr,
         timestamp,
